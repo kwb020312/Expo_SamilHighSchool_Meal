@@ -1,21 +1,83 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  SafeAreaView
+} from "react-native";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
+import {WebView} from 'react-native-webview'
+import axios from "axios";
+import Axios from "axios";
+
+// Ngrok 부분이기 때문에 다시 할때마다 재생성 해줘야함 ngrok http 3000
+const PUSH_REGISTRATION_ENDPOINT = "http://d61d4ba2f9df.ngrok.io/token";
+const MESSAGE_ENPOINT = "http://d61d4ba2f9df.ngrok.io/message";
 
 export default function App() {
+  const [notification, setNotification] = useState(null);
+  const registerForPushNotificationsAsync = async () => {
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (status !== "granted") {
+      return;
+    }
+    let token = await Notifications.getExpoPushTokenAsync();
+    return axios.post(PUSH_REGISTRATION_ENDPOINT, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      token: {
+        value: token,
+      },
+      user: {
+        username: "Chobby",
+        name: "Woobin Kim",
+      },
+    });
+    const notificationSubscription = Notifications.addListener(
+      handleNotification
+    );
+  };
+  const handleNotification = (notification) => {
+    setNotification(notification);
+  };
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+  const sendMessage = async (message) => {
+    axios.post(MESSAGE_ENPOINT, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      message,
+    });
+  };
+  useEffect(() => {
+    Axios.get('http://13.125.245.120:3000/')
+    .then(res => res.data.match(/[^<p>.*?</p>]/g).join("").match(/[^a-zA-Z!="'오늘의 급식]/g).join("").trim())
+    .then(res => sendMessage(res))
+  },[])
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{flex:1}}>
+        <WebView 
+          source={{ uri: 'http://www.samil.hs.kr/main.php' }}
+        />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textInput: {
+    backgroundColor: "gray",
+    width: 300,
+    height: 50,
+    color: "white",
   },
 });
