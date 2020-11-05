@@ -53,5 +53,13 @@ await expo.sendPushNotificationsAsync(객체)
 ```
 <img src="./gitImages/sendAlarm.PNG">
 
-<img src="./gitImages/Alarm.PNG">
+```javascript
+Axios.get(ADDR)
+.then(res => res처리)
+// 해당 부분을
+const data = await Axios.get(ADDR)
+const response = data.data.(res처리)
+// 로 바꾸어줄 수 있다.
+```
 
+<img src="./gitImages/Alarm.PNG">

@@ -57,8 +57,6 @@ export default function App() {
     const data = await Axios.get('http://13.125.245.120:3000/')
     const res = data.data.match(/[^<p>.*?</p>]/g).join("").match(/[^a-zA-Z!="'오늘의 급식]/g).join("").trim()
     sendMessage(res)
-    // .then(res => res.data.match(/[^<p>.*?</p>]/g).join("").match(/[^a-zA-Z!="'오늘의 급식]/g).join("").trim())
-    // .then(res => sendMessage(res))
   }
   useEffect(() => { 
     getMeals()
