@@ -10,8 +10,8 @@ import axios from "axios";
 import Axios from "axios";
 
 // Ngrok 부분이기 때문에 다시 할때마다 재생성 해줘야함 ngrok http 3000
-const PUSH_REGISTRATION_ENDPOINT = "http://d61d4ba2f9df.ngrok.io/token";
-const MESSAGE_ENPOINT = "http://d61d4ba2f9df.ngrok.io/message";
+const PUSH_REGISTRATION_ENDPOINT = "http://37a359164bcb.ngrok.io/token";
+const MESSAGE_ENPOINT = "http://37a359164bcb.ngrok.io/message";
 
 export default function App() {
   const [notification, setNotification] = useState(null);
