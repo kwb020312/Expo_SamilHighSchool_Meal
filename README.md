@@ -85,7 +85,7 @@ router.get('/주소' , (req,res) => {
 
 # AWS GATEWAY
 
-<img src="./gitImages/API_GATE_WAY.PNG">
+<img src="./gitImages/API_GATE_WAY.png">
 
 해당 사진은 API GATEWAY 의 역할을 정리한 것인데
 
