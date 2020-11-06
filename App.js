@@ -9,9 +9,8 @@ import {WebView} from 'react-native-webview'
 import axios from "axios";
 import Axios from "axios";
 
-// Ngrok 부분이기 때문에 다시 할때마다 재생성 해줘야함 ngrok http 3000
-const PUSH_REGISTRATION_ENDPOINT = "http://ec2-13-125-245-120.ap-northeast-2.compute.amazonaws.com:3000/users/token";
-const MESSAGE_ENPOINT = "http://ec2-13-125-245-120.ap-northeast-2.compute.amazonaws.com:3000/users/message";
+const PUSH_REGISTRATION_ENDPOINT = "https://qj3bq4y8hg.execute-api.ap-northeast-2.amazonaws.com/Chobby_v1/users/token";
+const MESSAGE_ENPOINT = "https://qj3bq4y8hg.execute-api.ap-northeast-2.amazonaws.com/Chobby_v1/users/message";
 
 export default function App() {
   const [notification, setNotification] = useState(null);
@@ -54,7 +53,7 @@ export default function App() {
     });
   };
   const getMeals = async() => {
-    const data = await Axios.get('http://13.125.245.120:3000/users/')
+    const data = await Axios.get('https://qj3bq4y8hg.execute-api.ap-northeast-2.amazonaws.com/Chobby_v1')
     const res = data.data.match(/[^<p>.*?</p>]/g).join("").match(/[^a-zA-Z!="'오늘의 급식]/g).join("").trim()
     sendMessage(res)
   }

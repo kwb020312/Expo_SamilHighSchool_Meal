@@ -63,3 +63,33 @@ const response = data.data.(res처리)
 ```
 
 <img src="./gitImages/Alarm.PNG">
+
+# AWS Lambda
+
+<img src="./gitImages/Lambda_logo.PNG">
+
+람다 란 AWS 함수실행 역할을 해주는 도구 이다.
+
+참고로 , 
+
+```javascript
+exports.handler = async (event) => {
+    event.원하는값
+};
+// 해당 형태로 되어있는데 이 중 인자로 들어오는 event 는
+router.get('/주소' , (req,res) => {
+    req.body.원하는값
+})
+// 과 같은 데이터를 담고있다.
+```
+
+# AWS GATEWAY
+
+<img src="./gitImages/API_GATE_WAY.PNG">
+
+해당 사진은 API GATEWAY 의 역할을 정리한 것인데
+
+설정해준 경로 , 메서드 와 일치하는 접근이 일어난다면 이벤트를 발생시킬 수 있는데
+이 때 아까 설정해둔 AWS Lambda  의 역할을 사용 할 수 있는것이다.
+
+
